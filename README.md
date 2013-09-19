@@ -49,13 +49,20 @@ description: {"name": "bitlancer/mysql","type":"git","url":"git://github.com/bit
 becomes:
 
 ```
-mod "puppetlabs/ntp" :forge => "http://forge.puppetlabs.com"
+mod "puppetlabs/ntp"
+  :forge => "http://forge.puppetlabs.com"
 
-mod "puppetlabs/mysql" :forge => "http://forge.puppetlabs.com" :ref => "0.0.3"
+mod "puppetlabs/mysql"
+  :forge => "http://forge.puppetlabs.com"
+  :ref => "0.0.3"
 
-mod "bitlancer/apache" :git => "git://github.com/bitlancer/bitlancer-apache.git"
+mod "bitlancer/apache"
+  :git => "git://github.com/bitlancer/bitlancer-apache.git"
 
-mod "bitlancer/mysql" :git => "git://github.com/bitlancer/bitlancer-apache.git" :ref => "1.1 :path => "feature/great-new-feature"
+mod "bitlancer/mysql" 
+  :git => "git://github.com/bitlancer/bitlancer-apache.git" 
+  :ref => "1.1
+  :path => "feature/great-new-feature"
 ```
 
 ... on disk.
