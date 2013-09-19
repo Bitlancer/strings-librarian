@@ -6,6 +6,10 @@ Bitlancer Strings librarian sync script
 
 A script to sync ou=librarian from LDAP to disk on the Puppet master.  The script should search LDAP, pull in everything under ou=librarian, parse it, and generate a file on disk (see example below).
 
+Puppet librarian documentation is here:
+
+https://github.com/rodjek/librarian-puppet/blob/master/README.md
+
 ## Installation
 
 ... to be updated by Adam ...
