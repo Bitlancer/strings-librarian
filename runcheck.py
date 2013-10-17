@@ -3,6 +3,30 @@ from optparse import OptionParser
 from librarian import check_changes, utils
 
 
+TIMESTAMP_FILE   = '.librarian.timestamp'
+
+def get_last_timestamp():
+    last_timestamp = 0
+
+    try:
+        with open(TIMESTAMP_FILE) as file:
+            last_timestamp = int(file.readline())
+            file.close()
+    except IOError:
+        pass
+    except ValueError:
+        pass
+
+    return last_timestamp
+
+def save_last_timestamp(timestamp):
+    try:
+        with open(TIMESTAMP_FILE, 'w') as file:
+            file.write(str(timestamp))
+            file.close()
+    except IOError:
+        print 'Error while saving timestamp'
+
 def main():
     usage = "%prog <ldap_ini> <organization_id>"
     parser = OptionParser(usage=usage)
