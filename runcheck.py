@@ -8,6 +8,7 @@ from librarian import check_changes, utils
 TIMESTAMP_FILE   = '.librarian.timestamp'
 TIMESTAMP_FORMAT = '%Y%m%d%H%M%S'
 
+
 def get_last_timestamp():
     last_timestamp = 0
 
@@ -22,6 +23,7 @@ def get_last_timestamp():
 
     return last_timestamp
 
+
 def save_last_timestamp(timestamp):
     try:
         with open(TIMESTAMP_FILE, 'w') as file:
@@ -29,6 +31,7 @@ def save_last_timestamp(timestamp):
             file.close()
     except IOError:
         print 'Error while saving timestamp'
+
 
 def main():
     usage = "%prog <ldap_ini> <organization_id>"
