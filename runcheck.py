@@ -2,7 +2,7 @@ import time
 
 from optparse import OptionParser
 
-from librarian import check_changes, utils
+from librarian import librarian, utils
 
 
 TIMESTAMP_FILE   = '.librarian.timestamp'
@@ -26,7 +26,7 @@ def main():
     with open(ldap_ini_fname, 'rb') as ldap_ini_file:
         ldap_server = utils.get_ldap_server_for_config(ldap_ini_file)
         tree = utils.select_elements_for_base_domain(ldap_server, organization_id)
-        if check_changes.has_tree_changed(tree, last_timestamp):
+        if librarian.has_tree_changed(tree, last_timestamp):
             # TODO: Generate puppetfile
             utils.save_last_timestamp(TIMESTAMP_FILE, current_timestamp)
 
