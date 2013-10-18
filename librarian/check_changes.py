@@ -2,11 +2,11 @@ import ldap
 import utils
 
 
-def has_tree_changed(ldap_server, base_domain, last_change_timestamp):
+def has_tree_changed(tree, last_change_timestamp):
     recent_change_found = False
 
     try:
-        for dn, attrs in utils.select_elements_for_base_domain(ldap_server, base_domain):
+        for dn, attrs in tree:
             modify_timestamp = _parse_modify_timestamp(attrs['modifyTimestamp'][0])
             if modify_timestamp > last_change_timestamp:
                 recent_change_found = True
