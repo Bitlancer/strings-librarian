@@ -24,3 +24,7 @@ def _parse_modify_timestamp(timestamp_str):
         timestamp = int(timestamp_str)
 
     return timestamp
+
+
+def generate_puppetfile_from_tree(tree):
+    return ""

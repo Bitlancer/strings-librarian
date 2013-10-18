@@ -8,6 +8,9 @@ from librarian import librarian, utils
 TIMESTAMP_FILE   = '.librarian.timestamp'
 TIMESTAMP_FORMAT = '%Y%m%d%H%M%S'
 
+PUPPETFILE       = 'Puppetfile'
+PUPPETFILE_LOCK  = 'Puppetfile.lock'
+
 
 def main():
     usage = "%prog <ldap_ini> <organization_id>"
@@ -27,7 +30,10 @@ def main():
         ldap_server = utils.get_ldap_server_for_config(ldap_ini_file)
         tree = utils.select_elements_for_base_domain(ldap_server, organization_id)
         if librarian.has_tree_changed(tree, last_timestamp):
-            # TODO: Generate puppetfile
+            with open(PUPPETFILE, 'w') as puppetfile:
+                puppetfile_contents = librarian.generate_puppetfile_from_tree(tree)
+                puppetfile.write(puppetfile_contents)
+                puppetfile.close()
             utils.save_last_timestamp(TIMESTAMP_FILE, current_timestamp)
 
 
