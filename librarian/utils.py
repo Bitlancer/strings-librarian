@@ -18,3 +18,27 @@ def get_ldap_server_for_config(ldap_ini_file):
 
 def select_elements_for_base_domain(ldap_server, base_domain):
     return ldap_server.search_s(base_domain, ldap.SCOPE_SUBTREE, 'objectClass=*', ['*', '+'])
+
+
+def get_last_timestamp(filename):
+    last_timestamp = 0
+
+    try:
+        with open(filename) as file:
+            last_timestamp = int(file.readline())
+            file.close()
+    except IOError:
+        pass
+    except ValueError:
+        pass
+
+    return last_timestamp
+
+
+def save_last_timestamp(filename, timestamp):
+    try:
+        with open(filename, 'w') as file:
+            file.write(str(timestamp))
+            file.close()
+    except IOError:
+        print 'Error while saving timestamp'
