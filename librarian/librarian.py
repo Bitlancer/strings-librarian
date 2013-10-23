@@ -53,7 +53,7 @@ def _find_first_forge(tree):
 
 
 def _parse_forge_entry(entry):
-    return 'forge "%s"\n%s\n' % (entry['url'], _format_tags_for_entry(entry))
+    return 'forge "%s"\n' % entry['url']
 
 
 def _parse_nonforge_entry(entry):
