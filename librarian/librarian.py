@@ -71,6 +71,8 @@ def _format_tags_for_entry(tags):
 
 def _substitute_tag_name(tname):
     if tname == 'url':
-        return 'git'
+        tname = 'git'
+    elif tname == 'reference':
+        tname = 'ref'
 
     return tname
