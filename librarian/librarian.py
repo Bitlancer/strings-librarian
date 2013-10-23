@@ -64,6 +64,13 @@ def _format_tags_for_entry(tags):
     formatted_tags = ''
     for t in tags:
         if t not in ['name', 'type'] and tags[t] != None:
-            formatted_tags += '\t:%s => "%s",\n' % (t, tags[t])
+            formatted_tags += '\t:%s => "%s",\n' % (_substitute_tag_name(t), tags[t])
 
     return formatted_tags.rstrip(',\n')
+
+
+def _substitute_tag_name(tname):
+    if tname == 'url':
+        return 'git'
+
+    return tname
