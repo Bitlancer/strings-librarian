@@ -29,7 +29,7 @@ def main():
     with open(ldap_ini_fname, 'rb') as ldap_ini_file:
         ldap_server = utils.get_ldap_server_for_config(ldap_ini_file)
         tree = utils.select_elements_for_base_domain(ldap_server, organization_id)
-        if librarian.has_tree_changed(tree, last_timestamp):
+        if tree is not None and librarian.has_tree_changed(tree, last_timestamp):
             with open(PUPPETFILE, 'w') as puppetfile:
                 puppetfile_contents = librarian.generate_puppetfile_from_tree(tree)
                 puppetfile.write(puppetfile_contents)
