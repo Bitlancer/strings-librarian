@@ -39,9 +39,6 @@ def get_last_timestamp(filename):
 
 
 def save_last_timestamp(filename, timestamp):
-    try:
-        with open(filename, 'w') as file:
-            file.write(str(timestamp))
-            file.close()
-    except IOError:
-        print 'Error while saving timestamp'
+    with open(filename, 'w') as file:
+        file.write(str(timestamp))
+        file.close()
