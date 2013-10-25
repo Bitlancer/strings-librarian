@@ -23,17 +23,10 @@ def _parse_modify_timestamp(timestamp_str):
 
 
 def generate_puppetfile_from_tree(tree):
-    puppetfile_content = ''
-
-    puppetfile_content += _parse_forge_entry(_find_first_forge(tree)) + '\n'
-
-    for obj in tree:
-        attribs = obj[1]
-
-        if 'description' in attribs:
-            puppetfile_content += _parse_nonforge_entry(json.loads(attribs['description'][0])) + '\n'
-
-    return puppetfile_content
+    return '\n'.join([_parse_forge_entry(_find_first_forge(tree))] +
+                     [_parse_nonforge_entry(json.loads(obj[1]['description'][0]))
+                     for obj in tree
+                     if 'description' in obj[1]])
 
 
 def _find_first_forge(tree):
