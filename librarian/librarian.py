@@ -15,7 +15,7 @@ def has_tree_changed(tree, last_change_timestamp):
 def _parse_modify_timestamp(timestamp_str):
     timestamp = 0
 
-    if len(timestamp_str) > 0:
+    if timestamp_str:
         timestamp_str = timestamp_str.rstrip('Z')
         timestamp = int(timestamp_str)
 
