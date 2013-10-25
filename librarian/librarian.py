@@ -49,12 +49,9 @@ def _parse_nonforge_entry(entry):
 
 
 def _format_tags_for_entry(tags):
-    formatted_tags = ''
-    for t in tags:
-        if t not in ['name', 'type'] and tags[t] != None:
-            formatted_tags += '\t:%s => "%s",\n' % (_substitute_tag_name(t), tags[t])
-
-    return formatted_tags.rstrip(',\n')
+    return ',\n'.join(['\t:%s => "%s"' % (_substitute_tag_name(t), tags[t])
+                      for t in tags
+                      if t not in ['name', 'type'] and tags[t] is not None])
 
 
 def _substitute_tag_name(tname):
