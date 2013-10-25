@@ -6,13 +6,10 @@ import utils
 def has_tree_changed(tree, last_change_timestamp):
     recent_change_found = False
 
-    try:
-        for dn, attrs in tree:
-            modify_timestamp = _parse_modify_timestamp(attrs['modifyTimestamp'][0])
-            if modify_timestamp > last_change_timestamp:
-                recent_change_found = True
-    except ldap.NO_SUCH_OBJECT:
-        pass
+    for dn, attrs in tree:
+        modify_timestamp = _parse_modify_timestamp(attrs['modifyTimestamp'][0])
+        if modify_timestamp > last_change_timestamp:
+            recent_change_found = True
 
     return recent_change_found
 

@@ -17,7 +17,10 @@ def get_ldap_server_for_config(ldap_ini_file):
 
 
 def select_elements_for_base_domain(ldap_server, base_domain):
-    return ldap_server.search_s(base_domain, ldap.SCOPE_SUBTREE, 'objectClass=*', ['*', '+'])
+    try:
+        return ldap_server.search_s(base_domain, ldap.SCOPE_SUBTREE, 'objectClass=*', ['*', '+'])
+    except ldap.NO_SUCH_OBJECT:
+        return None
 
 
 def get_last_timestamp(filename):
