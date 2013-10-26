@@ -1,5 +1,6 @@
 from ConfigParser import SafeConfigParser
 
+import hashlib
 import ldap
 
 
@@ -23,22 +24,26 @@ def select_elements_for_base_domain(ldap_server, base_domain):
         return None
 
 
-def get_last_timestamp(filename):
-    last_timestamp = 0
+def get_last_hash(filename):
+    last_hash = ''
 
     try:
         with open(filename) as file:
-            last_timestamp = int(file.readline())
+            last_hash = file.readline()
             file.close()
     except IOError:
         pass
-    except ValueError:
-        pass
 
-    return last_timestamp
+    return last_hash
 
 
-def save_last_timestamp(filename, timestamp):
+def save_last_hash(filename, hash):
     with open(filename, 'w') as file:
-        file.write(str(timestamp))
+        file.write(str(hash))
         file.close()
+
+
+def get_hex_digest_for(str):
+    m = hashlib.sha1()
+    m.update(str)
+    return m.hexdigest()
