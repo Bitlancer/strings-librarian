@@ -45,7 +45,7 @@ def _parse_forge_entry(entry):
 
 
 def _parse_nonforge_entry(entry):
-    return 'mod "%s"\n%s\n' % (entry["name"], _format_tags_for_entry(entry))
+    return 'mod "%s"\n%s\n' % (entry['name'], _format_tags_for_entry(entry))
 
 
 def _format_tags_for_entry(tags):
