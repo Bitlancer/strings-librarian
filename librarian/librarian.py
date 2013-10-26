@@ -45,7 +45,12 @@ def _parse_forge_entry(entry):
 
 
 def _parse_nonforge_entry(entry):
-    return 'mod "%s"\n%s\n' % (entry['name'], _format_tags_for_entry(entry))
+    if entry['type'] == 'forge':
+        ref_suffix = ', "%s"' % entry['reference']
+
+        return 'mod "%s"%s\n' % (entry['name'], ref_suffix if entry['reference'] else '')
+    else:
+        return 'mod "%s"\n%s\n' % (entry['name'], _format_tags_for_entry(entry))
 
 
 def _format_tags_for_entry(tags):
