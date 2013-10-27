@@ -3,15 +3,6 @@ import ldap
 import utils
 
 
-def has_tree_changed(tree, last_change_timestamp):
-    for dn, attrs in tree:
-        modify_timestamp = _parse_modify_timestamp(attrs['modifyTimestamp'][0])
-        if modify_timestamp > last_change_timestamp:
-            return True
-
-    return False
-
-
 def _parse_modify_timestamp(timestamp_str):
     timestamp = 0
 
