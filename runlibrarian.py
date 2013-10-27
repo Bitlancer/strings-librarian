@@ -12,6 +12,11 @@ PUPPETFILE = 'Puppetfile'
 def main():
     usage = "%prog <ldap_ini> <organization_id>"
     parser = OptionParser(usage=usage)
+    parser.add_option("--dry-run",
+                      help=("Print the action to be performed, but make no changes"),
+                      action="store_true",
+                      default=False,
+                      dest="dry_run")
 
     opts, args = parser.parse_args()
 
@@ -28,12 +33,24 @@ def main():
         if tree is not None:
             with open(PUPPETFILE, 'w') as puppetfile:
                 puppetfile_contents = librarian.generate_puppetfile_from_tree(tree)
-                puppetfile.write(puppetfile_contents)
+
+                if opts.dry_run:
+                    print '[Puppetfile]\n%s\n[/Puppetfile]' % puppetfile_contents,
+                else:
+                    puppetfile.write(puppetfile_contents)
+
                 puppetfile.close()
 
                 puppetfile_digest = utils.get_hex_digest_for(puppetfile_contents)
                 if (puppetfile_digest != last_hash):
-                    utils.save_last_hash(HASHFILE, puppetfile_digest)
+                    if opts.dry_run:
+                        print '\n\nChanges detected: YES'
+                        print '\nNew hash digest: %s' % puppetfile_digest
+                    else:
+                        utils.save_last_hash(HASHFILE, puppetfile_digest)
+                elif opts.dry_run:
+                    print '\n\nChanges detected: NO'
+                    print '\nPrevious hash digest: %s' % puppetfile_digest
 
 
 if __name__ == '__main__':
