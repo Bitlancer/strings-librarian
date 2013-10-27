@@ -35,7 +35,7 @@ def main():
                 puppetfile_contents = librarian.generate_puppetfile_from_tree(tree)
 
                 if opts.dry_run:
-                    print '[Puppetfile]\n%s\n[/Puppetfile]' % puppetfile_contents,
+                    print '[Puppetfile]\n%s\n[/Puppetfile]\n\n' % puppetfile_contents,
                 else:
                     puppetfile.write(puppetfile_contents)
 
@@ -44,13 +44,13 @@ def main():
                 puppetfile_digest = utils.get_hex_digest_for(puppetfile_contents)
                 if (puppetfile_digest != last_hash):
                     if opts.dry_run:
-                        print '\n\nChanges detected: YES'
-                        print '\nNew hash digest: %s' % puppetfile_digest
+                        print 'Changes detected: YES'
+                        print 'New hash digest: %s' % puppetfile_digest
                     else:
                         utils.save_last_hash(HASHFILE, puppetfile_digest)
                 elif opts.dry_run:
-                    print '\n\nChanges detected: NO'
-                    print '\nPrevious hash digest: %s' % puppetfile_digest
+                    print 'Changes detected: NO'
+                    print 'Previous hash digest: %s' % puppetfile_digest
 
 
 if __name__ == '__main__':
