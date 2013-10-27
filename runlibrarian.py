@@ -1,3 +1,5 @@
+import os
+import subprocess
 import time
 
 from optparse import OptionParser
@@ -5,8 +7,12 @@ from optparse import OptionParser
 from librarian import librarian, utils
 
 
-HASHFILE   = '.librarian.hash'
-PUPPETFILE = 'Puppetfile'
+HASHFILE        = '.librarian.hash'
+PUPPETFILE      = 'Puppetfile'
+PUPPETFILE_LOCK = 'Puppetfile.lock'
+
+INSTALL_CMD     = 'librarian-puppet install'
+UPDATE_CMD      = 'librarian-puppet update'
 
 
 def main():
@@ -48,6 +54,17 @@ def main():
                         print 'New hash digest: %s' % puppetfile_digest
                     else:
                         utils.save_last_hash(HASHFILE, puppetfile_digest)
+
+                        if os.path.exists(PUPPETFILE_LOCK):
+                            if opts.dry_run:
+                                print 'Would call %s' % UPDATE_CMD
+                            else:
+                                subprocess.call(UPDATE_CMD.split())
+                        else:
+                            if opts.dry_run:
+                                print 'Would call %s' % INSTALL_CMD
+                            else:
+                                subprocess.call(INSTALL_CMD.split())
                 elif opts.dry_run:
                     print 'Changes detected: NO'
                     print 'Previous hash digest: %s' % puppetfile_digest
