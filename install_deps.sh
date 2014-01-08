@@ -11,6 +11,9 @@ $INSTALL openldap-devel
 
 easy_install pip
 
+# If you get this error: "Wheel installs require setuptools >= 0.8 for dist-info support."
+# run the next two cmds with this additional option: "--no-use-wheel"
+
 pip install --upgrade setuptools
 pip install --upgrade distribute
 
