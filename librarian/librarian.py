@@ -41,7 +41,12 @@ def _parse_nonforge_entry(entry):
 
         return 'mod "%s"%s\n' % (entry['name'], ref_suffix if entry['reference'] else '')
     else:
-        return 'mod "%s"\n%s\n' % (entry['name'], _format_tags_for_entry(entry))
+        mod = entry['name']
+        tags = _format_tags_for_entry(entry)
+        mod_tags_delim = ""
+        if not tags.isspace():
+            mod_tags_delim = ','
+        return 'mod "%s"%s\n%s\n' % (mod, mod_tags_delim, tags)
 
 
 def _format_tags_for_entry(tags):

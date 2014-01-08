@@ -16,7 +16,7 @@ UPDATE_CMD      = 'librarian-puppet update'
 
 
 def main():
-    usage = "%prog <ldap_ini> <organization_id>"
+    usage = "%prog <ldap_ini> <start_of_librarian_tree>"
     parser = OptionParser(usage=usage)
     parser.add_option("--dry-run",
                       help=("Print the action to be performed, but make no changes"),
@@ -29,13 +29,13 @@ def main():
     if len(args) != 2:
         parser.error("2 args required, %d supplied" % len(args))
 
-    ldap_ini_fname, organization_id = args
+    ldap_ini_fname, librarian_tree = args
 
     last_hash = utils.get_last_hash(HASHFILE)
 
     with open(ldap_ini_fname, 'rb') as ldap_ini_file:
         ldap_server = utils.get_ldap_server_for_config(ldap_ini_file)
-        tree = utils.select_elements_for_base_domain(ldap_server, organization_id)
+        tree = utils.select_elements_for_base_domain(ldap_server, librarian_tree)
         if tree is not None:
             with open(PUPPETFILE, 'w') as puppetfile:
                 puppetfile_contents = librarian.generate_puppetfile_from_tree(tree)
