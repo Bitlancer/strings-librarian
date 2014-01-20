@@ -14,11 +14,11 @@ easy_install pip
 # If you get this error: "Wheel installs require setuptools >= 0.8 for dist-info support."
 # run the next two cmds with this additional option: "--no-use-wheel"
 
-pip install --upgrade setuptools
-pip install --upgrade distribute
+pip install --no-use-wheel --upgrade setuptools
+pip install --no-use-wheel --upgrade distribute
 
 pip install python-ldap
 
 # For testing only
 
-pip install nose
+#pip install nose
