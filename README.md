@@ -17,8 +17,8 @@ Example configuration:
 *ldap.ini*
 
     [sync]
-    uri=ldap://127.0.0.1
-    name=cn=Manager,dc=oasis-infra,dc=net
+    uri=ldap://dsa01.dfw01.socius.strings-service.net
+    name=uid=librarian,ou=users,ou=ldap,dc=example-infra,dc=net
     pass=mypassword
 
 All fields are required.
