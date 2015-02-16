@@ -11,8 +11,11 @@ HASHFILE        = '.librarian.hash'
 PUPPETFILE      = 'Puppetfile'
 PUPPETFILE_LOCK = 'Puppetfile.lock'
 
-INSTALL_CMD     = 'librarian-puppet install'
-UPDATE_CMD      = 'librarian-puppet update'
+MODULE_PATH      = "/etc/puppet/modules"
+#MODULE_PATH     = "/etc/puppet/environments/production/modules"
+
+INSTALL_CMD     = "librarian-puppet install --path %s" % MODULE_PATH
+UPDATE_CMD      = "librarian-puppet update --path %s" % MODULE_PATH
 
 
 def main():
